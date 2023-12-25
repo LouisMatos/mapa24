@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/registro")
-public class RegitroController {
+public class RegistroController {
 
 	public static final String PAGINA_REDIRECT_HOME = "redirect:/home";
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.luismatos.mapa24.application.ports.in.HomeInputPort;
+import br.com.luismatos.mapa24.interfaces.dto.RegistroChartDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,6 +28,14 @@ public class HomeController {
 		log.info("Iniciando busca de registro no banco de dados!");
 
 		model.addAttribute("mapa24", homeInputPort.buscarTodosRegistros());
+		
+		RegistroChartDTO registroChart = homeInputPort.buscarDadosChart();
+		
+		model.addAttribute("labelHora", registroChart.getHorario());
+		
+		model.addAttribute("labelSIS", registroChart.getListaSIS());
+		
+		model.addAttribute("labelDIA", registroChart.getListaDIA());
 
 		return PAGINA_REDIRECT_HOME;
 
