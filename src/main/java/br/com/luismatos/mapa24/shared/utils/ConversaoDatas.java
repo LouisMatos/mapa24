@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class ConversaoDatas {
 
-	private static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+	private static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	public static Date convertendoData(String dataString) {
 
