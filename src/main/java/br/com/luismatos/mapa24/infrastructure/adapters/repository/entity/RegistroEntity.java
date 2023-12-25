@@ -28,9 +28,9 @@ public class RegistroEntity implements Serializable {
 	@Column(name = "id_registro")
 	private Long id;
 
-	private Integer sis;
+	private Double sis;
 
-	private Integer dia;
+	private Double dia;
 
 	private String observacao;
 

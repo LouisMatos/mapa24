@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.luismatos.mapa24.application.ports.in.RegistroInputPort;
 import br.com.luismatos.mapa24.interfaces.dto.RegistroDTO;
@@ -23,9 +24,11 @@ public class RegistroController {
 	private RegistroInputPort registroInputPort;
 
 	@PostMapping("/novo")
-	public String novo(@Valid RegistroDTO registroDTO, BindingResult result, HttpServletRequest request) {
+	public String novo(@Valid RegistroDTO registroDTO, BindingResult result, HttpServletRequest request,
+			RedirectAttributes redirectAttrs) {
 
 		if (result.hasErrors()) {
+			redirectAttrs.addFlashAttribute("messageError", "Informações Inválidas para registro!");
 			return PAGINA_REDIRECT_HOME;
 		}
 
