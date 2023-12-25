@@ -63,7 +63,13 @@
 											class="form-control"></textarea>
 									</div>
 								</div>
-								<button name="submit" type="submit" class="btn btn-primary">Enviar</button>
+
+							<div class="alert alert-danger alert-dismissible fade show"
+								id="error" th:if="${messageError}" role="alert">
+								<span th:text="${messageError}"></span>
+							</div>
+
+							<button name="submit" type="submit" class="btn btn-primary">Enviar</button>
 							</form>
 	
 						</div>
@@ -125,6 +131,8 @@
 	
 </html>
 <script>
+
+$("#error").fadeOut(5000);
 
 function myFunction() {
 const ctx = document.getElementById('myChart');

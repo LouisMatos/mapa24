@@ -1,0 +1,107 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: db_mapa_2
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db_lanchonete
+    ports:
+      - "5432:5432"
+    networks:
+      - network_postgres
+    volumes:
+      - mapa_24_volume:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: web_pgmapa
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "pos@tech.com"
+      PGADMIN_DEFAULT_PASSWORD: "postech123"
+    ports:
+      - "54321:80"
+    networks:
+      - network_postgres
+    depends_on:
+      - postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.15'
+          memory: 128M
+
+  nginx:
+    restart: 'always'
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    networks:
+      - network_service
+    ports:
+      - "8070:80"
+    healthcheck:
+      test: curl --fail http://localhost:80/actuator/health || exit 1
+      interval: 30s
+      retries: 3
+      start_period: 60s
+      timeout: 6s
+    depends_on: 
+      - mapa24
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+
+  mapa24:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: testeluismatos/mapa24:1.0.0
+    hostname: mapa24
+    environment:
+      - SPRING_DATABASE=postgres
+      - JAVA_OPTS=-server -Xms64M -Xmx512M -XX:ThreadStackSize=20000 -Xss4M 
+    expose:
+      - "8070"
+    networks:
+      - network_postgres
+      - network_service
+    depends_on:
+      - postgres
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        max_replicas_per_node: 10
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+volumes:
+  mapa_24_volume:
+    driver: local
+
+networks:
+  network_service:
+    driver: bridge
+  network_postgres:
+    driver: bridge

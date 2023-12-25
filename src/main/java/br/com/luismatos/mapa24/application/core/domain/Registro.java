@@ -10,9 +10,9 @@ public class Registro {
 
 	private Long id;
 
-	private Integer sis;
+	private Double sis;
 
-	private Integer dia;
+	private Double dia;
 
 	private String observacao;
 
@@ -22,7 +22,7 @@ public class Registro {
 
 	}
 
-	public Registro(Long id, Integer sis, Integer dia, String observacao, Date dataRegistro) {
+	public Registro(Long id, Double sis, Double dia, String observacao, Date dataRegistro) {
 		this.id = id;
 		this.sis = sis;
 		this.dia = dia;
@@ -38,19 +38,19 @@ public class Registro {
 		this.id = id;
 	}
 
-	public Integer getSis() {
+	public Double getSis() {
 		return sis;
 	}
 
-	public void setSis(Integer sis) {
+	public void setSis(Double sis) {
 		this.sis = sis;
 	}
 
-	public Integer getDia() {
+	public Double getDia() {
 		return dia;
 	}
 
-	public void setDia(Integer dia) {
+	public void setDia(Double dia) {
 		this.dia = dia;
 	}
 

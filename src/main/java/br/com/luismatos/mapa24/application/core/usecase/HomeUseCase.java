@@ -49,7 +49,7 @@ public class HomeUseCase implements HomeInputPort {
 		return registroChartDTO;
 	}
 
-	private String montaListaString(List<Integer> list) {
+	private String montaListaString(List<Double> list) {
 		String temp = "[";
 		for (int i = 0; i < list.size(); i++) {
 			temp = temp + list.get(i) +",";

@@ -26,6 +26,7 @@ public class HomeController {
 	public String home(Model model, Principal principal) {
 
 		log.info("Iniciando busca de registro no banco de dados!");
+		
 
 		model.addAttribute("mapa24", homeInputPort.buscarTodosRegistros());
 		

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.luismatos.mapa24.application.core.domain.Registro;
 import br.com.luismatos.mapa24.shared.utils.ConversaoDatas;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -12,12 +14,15 @@ public class RegistroDTO {
 	@JsonProperty("id")
 	private Long id;
 
+	@NotNull
 	@JsonProperty("SIS")
-	private Integer sis;
+	private Double sis;
 
+	@NotNull
 	@JsonProperty("DIA")
-	private Integer dia;
-
+	private Double dia;
+	
+	@NotEmpty
 	@JsonProperty("observacao")
 	private String observacao;
 
